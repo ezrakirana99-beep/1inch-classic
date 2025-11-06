@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1inch Classic</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.8.0/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <h1>1inch Classic</h1>
+    <button id="connectBtn">🔗 Connect Wallet</button>
+
+    <div class="network">
+      <label>Network:</label>
+      <select id="networkSelect">
+        <option value="polygon">Polygon</option>
+        <option value="bsc">BSC</option>
+        <option value="arbitrum">Arbitrum</option>
+        <option value="optimism">Optimism</option>
+      </select>
+    </div>
+
+    <div class="swap">
+      <h3>Simple Swap</h3>
+      <input id="fromToken" placeholder="Token From (address)">
+      <input id="toToken" placeholder="Token To (address)">
+      <input id="amount" placeholder="Amount">
+      <button id="swapBtn">Swap</button>
+    </div>
+
+    <div class="limit">
+      <h3>Limit Order</h3>
+      <textarea id="orderJson" placeholder="Order JSON"></textarea>
+      <input id="signature" placeholder="Signature (bytes)">
+      <button id="fillBtn">Fill Order</button>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
