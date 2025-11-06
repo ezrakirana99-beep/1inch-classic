@@ -1,42 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>1inch Classic</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>1inch Classic — Personal</title>
   <link rel="stylesheet" href="style.css">
+  <!-- ethers UMD (v6) -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.8.0/dist/ethers.umd.min.js"></script>
 </head>
 <body>
-  <div class="app">
-    <h1>1inch Classic</h1>
-    <button id="connectBtn">🔗 Connect Wallet</button>
+  <div id="app">
+    <header class="topbar">
+      <div class="logo">
+        <div class="logo-icon">🦄</div>
+        <div class="logo-text">1inch Classic</div>
+      </div>
+      <div class="top-actions">
+        <select id="networkSelect" title="Select network">
+          <option value="polygon">Polygon</option>
+          <option value="bsc">BSC</option>
+          <option value="arbitrum">Arbitrum</option>
+          <option value="optimism">Optimism</option>
+        </select>
+        <button id="connectBtn" class="btn btn-primary">Connect Wallet</button>
+      </div>
+    </header>
 
-    <div class="network">
-      <label>Network:</label>
-      <select id="networkSelect">
-        <option value="polygon">Polygon</option>
-        <option value="bsc">BSC</option>
-        <option value="arbitrum">Arbitrum</option>
-        <option value="optimism">Optimism</option>
-      </select>
-    </div>
+    <main class="container">
+      <section class="left">
+        <div class="card market-card">
+          <div class="market-header">
+            <div class="pair">WETH / OP</div>
+            <div class="price">9,503.35 <span class="up">+5.13%</span></div>
+          </div>
+          <div class="chart-placeholder">[Chart placeholder — minimal]</div>
+          <p class="note">Even if you see that the current market price on the chart matches your limit price, there is no guarantee that your limit order will be immediately filled.</p>
+        </div>
+      </section>
 
-    <div class="swap">
-      <h3>Simple Swap</h3>
-      <input id="fromToken" placeholder="Token From (address)">
-      <input id="toToken" placeholder="Token To (address)">
-      <input id="amount" placeholder="Amount">
-      <button id="swapBtn">Swap</button>
-    </div>
+      <aside class="right">
+        <div class="card swap-card">
+          <div class="tabs">
+            <button class="tab active" data-tab="swap">Swap</button>
+            <button class="tab" data-tab="limit">Limit</button>
+          </div>
 
-    <div class="limit">
-      <h3>Limit Order</h3>
-      <textarea id="orderJson" placeholder="Order JSON"></textarea>
-      <input id="signature" placeholder="Signature (bytes)">
-      <button id="fillBtn">Fill Order</button>
-    </div>
+          <div class="tab-panel" id="swapPanel">
+            <h3>Simple Swap</h3>
+            <label>From</label>
+            <div class="token-row">
+              <input id="swapFrom" placeholder="Token address or symbol" />
+              <input id="swapFromAmount" placeholder="Amount" />
+            </div>
+            <label>To</label>
+            <div class="token-row">
+              <input id="swapTo" placeholder="Token address or symbol" />
+              <input id="swapToAmount" placeholder="Estimated receive" disabled />
+            </div>
+            <button id="swapBtn" class="btn btn-primary">Swap</button>
+          </div>
+
+          <div class="tab-panel hidden" id="limitPanel">
+            <h3>Limit Order</h3>
+            <label>Order JSON (Maker)</label>
+            <textarea id="orderJson" placeholder='Paste order JSON here (maker)'></textarea>
+            <label>Signature (bytes)</label>
+            <input id="signature" placeholder="0x..." />
+            <div class="flex-row">
+              <button id="fillBtn" class="btn btn-primary">Fill Order</button>
+              <button id="previewBtn" class="btn">Preview</button>
+            </div>
+            <p class="small">Tip: maker harus sign EIP-712 order. Taker must approve takerAsset to contract.</p>
+          </div>
+        </div>
+
+        <div class="card quick-info">
+          <h4>Quick Actions</h4>
+          <button id="approveBtn" class="btn">Approve token (taker)</button>
+          <button id="readBtn" class="btn">Read Contract (view)</button>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <small>Personal 1inch Classic — demo UI. Contract: <code>0x111111125421cA6dc452d289314280a0f8842A65</code></small>
+    </footer>
   </div>
+
   <script src="app.js"></script>
 </body>
 </html>
